@@ -1,0 +1,15 @@
+# Java
+*.class
+*.jar
+
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Eclipse
+.classpath
+.project
+.settings/
+bin/
+
