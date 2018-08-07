@@ -16,8 +16,8 @@ import io.flobj.exception.PathParsingException;
 /**
  * Grammer
  * <pre>
- * ListIndex ::= '[' INTEGER ']'
- * ObjectKey ::= '.' INDENTIFIER
+ * ListIndex ::= [ INTEGER ]
+ * ObjectKey ::= . INDENTIFIER | [' STRING ']
  * Property  ::= ListIndex | ObjectKey
  * Path      ::= Property | Property Path
  * </pre>
@@ -27,7 +27,11 @@ public class JqPathParser implements PathParser {
     private static final Parser<Integer> INDEX = INTEGER.map(Integer::valueOf);
     private static final Parser<ListIndex> ARRAY_NOTATION = INDEX.between(isChar('['), isChar(']')).map(ListIndex::new);
 
-    private static final Parser<ObjectKey> OBJECT_NOTATION = sequence(isChar('.'), IDENTIFIER).map(ObjectKey::new);
+    private static final Parser<ObjectKey> OBJECT_NOTATION =
+        or(
+            sequence(isChar('.'), IDENTIFIER),
+            StringLiterals.SINGLE_QUOTED_STRING.between(isChar('['), isChar(']')))
+                .map(ObjectKey::new);
 
     private static final Parser<Property> PROPERTY_NOTATION = or(ARRAY_NOTATION, OBJECT_NOTATION);
 
