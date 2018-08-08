@@ -1,4 +1,4 @@
-package io.flobj.exception;
+package io.jsonsmith.exception;
 
 public class UnexpectedContextException extends RuntimeException {
 

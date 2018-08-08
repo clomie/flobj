@@ -1,10 +1,10 @@
-package io.flobj.ast;
+package io.jsonsmith.ast;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import io.flobj.exception.UnexpectedContextException;
+import io.jsonsmith.exception.UnexpectedContextException;
 
 public class ObjectKey implements Property {
 

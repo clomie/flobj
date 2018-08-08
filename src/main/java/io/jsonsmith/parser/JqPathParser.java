@@ -1,4 +1,4 @@
-package io.flobj.parser;
+package io.jsonsmith.parser;
 
 import static org.jparsec.Parsers.*;
 import static org.jparsec.Scanners.*;
@@ -6,12 +6,12 @@ import static org.jparsec.Scanners.*;
 import org.jparsec.Parser;
 import org.jparsec.error.ParserException;
 
-import io.flobj.PathParser;
-import io.flobj.ast.ListIndex;
-import io.flobj.ast.ObjectKey;
-import io.flobj.ast.Property;
-import io.flobj.ast.PropertyPath;
-import io.flobj.exception.PathParsingException;
+import io.jsonsmith.PathParser;
+import io.jsonsmith.ast.ListIndex;
+import io.jsonsmith.ast.ObjectKey;
+import io.jsonsmith.ast.Property;
+import io.jsonsmith.ast.PropertyPath;
+import io.jsonsmith.exception.PathParsingException;
 
 /**
  * Grammer

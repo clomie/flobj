@@ -1,4 +1,4 @@
-package io.flobj.parser;
+package io.jsonsmith.parser;
 
 import static org.jparsec.pattern.Patterns.*;
 
@@ -7,7 +7,7 @@ import org.jparsec.Parsers;
 import org.jparsec.Scanners;
 import org.jparsec.pattern.CharPredicates;
 
-import io.flobj.exception.PathParsingException;
+import io.jsonsmith.exception.PathParsingException;
 
 class StringLiterals {
 
@@ -68,10 +68,5 @@ class StringLiterals {
 
     private static <T> Parser<T> quotedBy(Parser<T> parser, Parser<Void> quote) {
         return parser.between(quote, quote);
-    }
-
-    public static void main(String[] args) {
-        String str = SINGLE_QUOTED_STRING.parse("'a\\t\\'\\\\\"'");
-        System.out.println(str);
     }
 }

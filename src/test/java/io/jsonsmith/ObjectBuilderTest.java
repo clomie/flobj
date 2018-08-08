@@ -1,4 +1,4 @@
-package io.flobj;
+package io.jsonsmith;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.flobj.ObjectBuilder;
+import io.jsonsmith.ObjectBuilder;
 
 class ObjectBuilderTest {
 

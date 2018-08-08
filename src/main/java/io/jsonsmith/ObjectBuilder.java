@@ -1,12 +1,12 @@
-package io.flobj;
+package io.jsonsmith;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.flobj.ast.PropertyPath;
-import io.flobj.parser.JqPathParser;
+import io.jsonsmith.ast.PropertyPath;
+import io.jsonsmith.parser.JqPathParser;
 
 public class ObjectBuilder {
 
@@ -34,7 +34,7 @@ public class ObjectBuilder {
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public Object build(Object initial) {
-        ObjectWrapper wrapper = new ObjectWrapper(initial);
+        ObjectWrapper wrapper = new ObjectWrapper(initial, parser);
         entryMap.forEach(wrapper::commit);
         Object result = wrapper.unwrap();
 

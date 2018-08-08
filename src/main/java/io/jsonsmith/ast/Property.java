@@ -1,4 +1,4 @@
-package io.flobj.ast;
+package io.jsonsmith.ast;
 
 public interface Property {
 

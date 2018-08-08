@@ -1,9 +1,9 @@
-package io.flobj.ast;
+package io.jsonsmith.ast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.flobj.exception.UnexpectedContextException;
+import io.jsonsmith.exception.UnexpectedContextException;
 
 public class ListIndex implements Property {
 

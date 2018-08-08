@@ -1,7 +1,7 @@
-package io.flobj;
+package io.jsonsmith;
 
-import io.flobj.ast.PropertyPath;
-import io.flobj.parser.JqPathParser;
+import io.jsonsmith.ast.PropertyPath;
+import io.jsonsmith.parser.JqPathParser;
 
 public class ObjectWrapper {
 
