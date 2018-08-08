@@ -1,7 +1,7 @@
 package io.flobj;
 
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +10,7 @@ import io.flobj.parser.JqPathParser;
 
 public class ObjectBuilder {
 
-    private List<Entry> entries;
+    private Map<PropertyPath, Object> entryMap;
     private PathParser parser;
 
     public ObjectBuilder() {
@@ -19,12 +19,12 @@ public class ObjectBuilder {
 
     public ObjectBuilder(PathParser parser) {
         this.parser = parser;
-        this.entries = new ArrayList<>();
+        this.entryMap = new HashMap<>();
     }
 
     public ObjectBuilder put(String path, Object value) {
         PropertyPath accessor = parser.parse(path);
-        entries.add(new Entry(accessor, value));
+        entryMap.put(accessor, value);
         return this;
     }
 
@@ -34,10 +34,9 @@ public class ObjectBuilder {
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public Object build(Object initial) {
-        Object result = initial;
-        for (Entry entry : entries) {
-            result = entry.build(result);
-        }
+        ObjectWrapper wrapper = new ObjectWrapper(initial);
+        entryMap.forEach(wrapper::commit);
+        Object result = wrapper.unwrap();
 
         if (result instanceof List) {
             return Collections.unmodifiableList((List) result);
@@ -48,17 +47,4 @@ public class ObjectBuilder {
         return result;
     }
 
-    private static class Entry {
-        final PropertyPath path;
-        final Object value;
-
-        Entry(PropertyPath path, Object value) {
-            this.path = path;
-            this.value = value;
-        }
-
-        Object build(Object context) {
-            return path.commit(context, value);
-        }
-    }
 }
