@@ -1,6 +1,6 @@
-package io.jsonsmith;
+package net.clomie.jsonsmith;
 
-import io.jsonsmith.parser.JqPathParser;
+import net.clomie.jsonsmith.parser.JqPathParser;
 
 public final class Jsonsmith {
 

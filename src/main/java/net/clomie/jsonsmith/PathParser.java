@@ -1,6 +1,6 @@
-package io.jsonsmith;
+package net.clomie.jsonsmith;
 
-import io.jsonsmith.ast.PropertyPath;
+import net.clomie.jsonsmith.ast.PropertyPath;
 
 public interface PathParser {
     PropertyPath parse(CharSequence source);

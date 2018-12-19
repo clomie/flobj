@@ -1,4 +1,4 @@
-package io.jsonsmith.ast;
+package net.clomie.jsonsmith.ast;
 
 import java.util.List;
 import java.util.stream.Collectors;

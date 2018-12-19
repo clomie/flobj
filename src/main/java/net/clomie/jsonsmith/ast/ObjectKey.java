@@ -1,10 +1,10 @@
-package io.jsonsmith.ast;
+package net.clomie.jsonsmith.ast;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import io.jsonsmith.exception.UnexpectedContextException;
+import net.clomie.jsonsmith.exception.UnexpectedContextException;
 
 public class ObjectKey implements Property {
 

@@ -1,7 +1,7 @@
-package io.jsonsmith;
+package net.clomie.jsonsmith;
 
-import io.jsonsmith.ast.PropertyPath;
-import io.jsonsmith.parser.JqPathParser;
+import net.clomie.jsonsmith.ast.PropertyPath;
+import net.clomie.jsonsmith.parser.JqPathParser;
 
 public class ObjectWrapper {
 

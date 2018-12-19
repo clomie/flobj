@@ -1,4 +1,4 @@
-package io.jsonsmith.parser;
+package net.clomie.jsonsmith.parser;
 
 import static org.jparsec.Parsers.*;
 import static org.jparsec.Scanners.*;
@@ -6,12 +6,12 @@ import static org.jparsec.Scanners.*;
 import org.jparsec.Parser;
 import org.jparsec.error.ParserException;
 
-import io.jsonsmith.PathParser;
-import io.jsonsmith.ast.ListIndex;
-import io.jsonsmith.ast.ObjectKey;
-import io.jsonsmith.ast.Property;
-import io.jsonsmith.ast.PropertyPath;
-import io.jsonsmith.exception.PathParsingException;
+import net.clomie.jsonsmith.PathParser;
+import net.clomie.jsonsmith.ast.ArrayIndex;
+import net.clomie.jsonsmith.ast.ObjectKey;
+import net.clomie.jsonsmith.ast.Property;
+import net.clomie.jsonsmith.ast.PropertyPath;
+import net.clomie.jsonsmith.exception.PathParsingException;
 
 /**
  * Grammer
@@ -25,7 +25,7 @@ import io.jsonsmith.exception.PathParsingException;
 public class JqPathParser implements PathParser {
 
     private static final Parser<Integer> INDEX = INTEGER.map(Integer::valueOf);
-    private static final Parser<ListIndex> ARRAY_NOTATION = INDEX.between(isChar('['), isChar(']')).map(ListIndex::new);
+    private static final Parser<ArrayIndex> ARRAY_NOTATION = INDEX.between(isChar('['), isChar(']')).map(ArrayIndex::new);
 
     private static final Parser<ObjectKey> OBJECT_NOTATION =
         or(

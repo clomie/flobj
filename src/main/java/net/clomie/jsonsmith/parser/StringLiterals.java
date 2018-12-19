@@ -1,4 +1,4 @@
-package io.jsonsmith.parser;
+package net.clomie.jsonsmith.parser;
 
 import static org.jparsec.pattern.Patterns.*;
 
@@ -7,7 +7,7 @@ import org.jparsec.Parsers;
 import org.jparsec.Scanners;
 import org.jparsec.pattern.CharPredicates;
 
-import io.jsonsmith.exception.PathParsingException;
+import net.clomie.jsonsmith.exception.PathParsingException;
 
 class StringLiterals {
 

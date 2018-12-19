@@ -1,12 +1,12 @@
-package io.jsonsmith;
+package net.clomie.jsonsmith;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.jsonsmith.ast.PropertyPath;
-import io.jsonsmith.parser.JqPathParser;
+import net.clomie.jsonsmith.ast.PropertyPath;
+import net.clomie.jsonsmith.parser.JqPathParser;
 
 public class ObjectBuilder {
 

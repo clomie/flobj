@@ -1,15 +1,15 @@
-package io.jsonsmith.ast;
+package net.clomie.jsonsmith.ast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.jsonsmith.exception.UnexpectedContextException;
+import net.clomie.jsonsmith.exception.UnexpectedContextException;
 
-public class ListIndex implements Property {
+public class ArrayIndex implements Property {
 
     private final int index;
 
-    public ListIndex(int index) {
+    public ArrayIndex(int index) {
         this.index = index;
     }
 
@@ -68,10 +68,10 @@ public class ListIndex implements Property {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof ListIndex)) {
+        if (!(obj instanceof ArrayIndex)) {
             return false;
         }
-        ListIndex other = (ListIndex) obj;
+        ArrayIndex other = (ArrayIndex) obj;
         return this.index == other.index;
     }
 

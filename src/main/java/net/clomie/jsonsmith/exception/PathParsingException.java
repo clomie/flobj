@@ -1,4 +1,4 @@
-package io.jsonsmith.exception;
+package net.clomie.jsonsmith.exception;
 
 public class PathParsingException extends RuntimeException {
 

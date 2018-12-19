@@ -1,4 +1,4 @@
-package io.jsonsmith.ast;
+package net.clomie.jsonsmith.ast;
 
 public interface Property {
 

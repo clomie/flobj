@@ -1,10 +1,10 @@
 # Jsonsmith
 
-A java library for roughly handling JSON-like objects.
+A java library for roughly creating JSON-like objects.
 
 # Usage
 
-## ObjectWrapper
+## ObjectBuilder
 
 For example,
 
@@ -19,8 +19,10 @@ Object obj =
         .put(".set.very.deep.property.directly", true)
         .build();
 
-ObjectMapper objectMapper = new ObjectMapper()
-String json = objectMapper.writeValueAsString(obj);
+// jackson
+String json = new ObjectMapper()
+    .enable(SerializationFeature.INDENT_OUTPUT)
+    .writeValueAsString(obj)
 
 System.out.println(json);
 ```
