@@ -1,37 +1,40 @@
 package net.clomie.jsonsmith.ast;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
 public class PropertyPath {
 
-    private final List<Property> props;
+    private final Property head;
+    private final PropertyPath tail;
 
-    public PropertyPath(List<Property> props) {
-        this.props = props;
+    public PropertyPath(Property head) {
+        this(head, null);
+    }
+
+    public PropertyPath(Property head, PropertyPath tail) {
+        this.head = head;
+        this.tail = tail;
     }
 
     public Object commit(Object context, Object value) {
-        if (props.isEmpty()) {
-            return value;
+        if (tail == null) {
+            return head.commit(context, value);
+        } else {
+            return head.commit(context, tail.commit(head.get(context), value));
         }
-        Property head = props.get(0);
-        PropertyPath path = new PropertyPath(props.subList(1, props.size()));
-        return head.commit(context, path.commit(head.get(context), value));
     }
 
     public Object pick(Object context) {
-        if (props.isEmpty()) {
-            return context;
+        if (tail == null) {
+            return head.get(context);
+        } else {
+            return tail.pick(head.get(context));
         }
-        Property head = props.get(0);
-        PropertyPath path = new PropertyPath(props.subList(1, props.size()));
-        return path.pick(head.get(context));
     }
 
     @Override
     public int hashCode() {
-        return props.hashCode();
+        return Objects.hash(head, tail);
     }
 
     @Override
@@ -43,15 +46,16 @@ public class PropertyPath {
             return false;
         }
         PropertyPath other = (PropertyPath) obj;
-        return props.equals(other.props);
+        return Objects.equals(head, other.head) && Objects.equals(tail, other.tail);
     }
 
     @Override
     public String toString() {
-        return props
-            .stream()
-            .map(Object::toString)
-            .collect(Collectors.joining());
+        if (tail != null) {
+            return head.toString();
+        } else {
+            return head + "," + tail;
+        }
     }
 
 }

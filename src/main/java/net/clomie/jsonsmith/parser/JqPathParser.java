@@ -4,6 +4,7 @@ import static org.jparsec.Parsers.*;
 import static org.jparsec.Scanners.*;
 
 import org.jparsec.Parser;
+import org.jparsec.Parser.Reference;
 import org.jparsec.error.ParserException;
 
 import net.clomie.jsonsmith.PathParser;
@@ -15,9 +16,10 @@ import net.clomie.jsonsmith.exception.PathParsingException;
 
 /**
  * Grammer
+ *
  * <pre>
- * ListIndex ::= [ INTEGER ]
- * ObjectKey ::= . INDENTIFIER | [' STRING ']
+ * ArrayIndex ::= [ INTEGER ]
+ * ObjectKey ::= . IDENTIFIER | [' STRING ']
  * Property  ::= ListIndex | ObjectKey
  * Path      ::= Property | Property Path
  * </pre>
@@ -25,22 +27,31 @@ import net.clomie.jsonsmith.exception.PathParsingException;
 public class JqPathParser implements PathParser {
 
     private static final Parser<Integer> INDEX = INTEGER.map(Integer::valueOf);
-    private static final Parser<ArrayIndex> ARRAY_NOTATION = INDEX.between(isChar('['), isChar(']')).map(ArrayIndex::new);
+    private static final Parser<ArrayIndex> ARRAY_NOTATION = inBrackets(INDEX).map(ArrayIndex::new);
 
-    private static final Parser<ObjectKey> OBJECT_NOTATION =
-        or(
-            sequence(isChar('.'), IDENTIFIER),
-            StringLiterals.SINGLE_QUOTED_STRING.between(isChar('['), isChar(']')))
-                .map(ObjectKey::new);
+    private static final Parser<String> DOT_IDENTIFIER = sequence(isChar('.'), IDENTIFIER);
+    private static final Parser<String> STRING_IN_BRACKET = inBrackets(StringLiterals.SINGLE_QUOTED_STRING);
+    private static final Parser<ObjectKey> OBJECT_NOTATION = or(DOT_IDENTIFIER, STRING_IN_BRACKET).map(ObjectKey::new);
 
     private static final Parser<Property> PROPERTY_NOTATION = or(ARRAY_NOTATION, OBJECT_NOTATION);
 
-    private static final Parser<PropertyPath> PROPERTY_PATH = PROPERTY_NOTATION.many().map(PropertyPath::new);
+    private static <T> Parser<T> inBrackets(Parser<T> parser) {
+        return parser.between(isChar('['), isChar(']'));
+    }
+
+    private static Parser<PropertyPath> propertyPath() {
+        Reference<PropertyPath> ref = Parser.newReference();
+        Parser<PropertyPath> single = PROPERTY_NOTATION.map(PropertyPath::new);
+        Parser<PropertyPath> multiple = sequence(PROPERTY_NOTATION, ref.lazy(), PropertyPath::new);
+        Parser<PropertyPath> parser = single.or(multiple);
+        ref.set(parser);
+        return parser;
+    }
 
     private Parser<PropertyPath> parser;
 
     public JqPathParser() {
-        this.parser = PROPERTY_PATH;
+        this.parser = propertyPath();
     }
 
     @Override
