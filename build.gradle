@@ -2,7 +2,8 @@ plugins {
     id 'java-library'
 }
 
-group = 'io.jsonsmith'
+group = 'net.clomie.jsonsmith'
+version = '0.0.1-SNAPSHOT'
 
 dependencies {
     implementation 'org.jparsec:jparsec:3.0'
