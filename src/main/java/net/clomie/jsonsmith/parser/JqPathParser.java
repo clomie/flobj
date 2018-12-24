@@ -21,7 +21,7 @@ import net.clomie.jsonsmith.exception.PathParsingException;
  * ArrayIndex ::= [ INTEGER ]
  * ObjectKey ::= . IDENTIFIER | [' STRING ']
  * Property  ::= ListIndex | ObjectKey
- * Path      ::= Property | Property Path
+ * Path      ::= Property Path | Property
  * </pre>
  */
 public class JqPathParser implements PathParser {
@@ -41,9 +41,9 @@ public class JqPathParser implements PathParser {
 
     private static Parser<PropertyPath> propertyPath() {
         Reference<PropertyPath> ref = Parser.newReference();
-        Parser<PropertyPath> single = PROPERTY_NOTATION.map(PropertyPath::new);
         Parser<PropertyPath> multiple = sequence(PROPERTY_NOTATION, ref.lazy(), PropertyPath::new);
-        Parser<PropertyPath> parser = single.or(multiple);
+        Parser<PropertyPath> single = PROPERTY_NOTATION.map(PropertyPath::new);
+        Parser<PropertyPath> parser = multiple.or(single);
         ref.set(parser);
         return parser;
     }
